@@ -1,6 +1,6 @@
 # Intro
 
-This application reprensents a movies collection app it was created on top of latest react version
+This application reprensents a todolist app it was created on top of latest react version
 
 # Screenshot
 
