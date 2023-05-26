@@ -38,10 +38,10 @@ const TodosCount = () => {
   const todosCount = useSelector((state: IAppState) => getAllTodoListsCount(state));
 
   return (
-    <Badge content={todosCount || 0} withBorder>
-      <Button>
-        <Link to="/">Mes todos listes </Link>
-      </Button>
-    </Badge>
+    <Link to="/">
+      <Badge content={todosCount || 0} withBorder>
+        <Button>Mes todos listes</Button>
+      </Badge>
+    </Link>
   );
 };
