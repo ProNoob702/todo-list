@@ -3,3 +3,8 @@ export interface TodoListItem {
   name: string;
   tasks: string[];
 }
+
+export interface CreateOrUpdateTodoListRequest {
+  name: string;
+  tasks: string[];
+}
