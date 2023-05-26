@@ -64,7 +64,7 @@ const AllTodosList = () => {
                           Edit
                         </Typography>
                       </Link>
-                      <Typography as="a" href="#" variant="small" color="blue" className="font-medium" onClick={requestDeleteTodoList}>
+                      <Typography as="a" href="#" variant="small" color="blue" className="font-medium" onClick={() => requestDeleteTodoList(id)}>
                         Delete
                       </Typography>
                     </div>

@@ -1,7 +1,11 @@
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
+const cors = require("cors");
+
 const app = express();
 app.use(express.json());
+
+app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
 
 const oneEl = { id: uuidv4(), name: "zinka", tasks: [] };
 
