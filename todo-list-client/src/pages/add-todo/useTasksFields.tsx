@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import { TodoListItem } from "../../models/todoList";
 
-export const useTasksFields = (todoList?: TodoListItem | null) => {
+export const useTasksFields = () => {
   const [tasksFields, setTasksFields] = useState<{ taskName: string | null }[]>([{ taskName: "" }]);
-
-  useEffect(() => {
-    if (todoList) {
-      setupFields();
-    }
-  }, [todoList]);
 
   const handleAddField = () => {
     setTasksFields([...tasksFields, { taskName: null }]);
@@ -29,7 +23,7 @@ export const useTasksFields = (todoList?: TodoListItem | null) => {
     setTasksFields(images);
   };
 
-  const setupFields = () => {
+  const setupFields = (todoList: TodoListItem) => {
     const result: { taskName: string }[] = [];
     const tasks = todoList?.tasks;
 
@@ -49,5 +43,6 @@ export const useTasksFields = (todoList?: TodoListItem | null) => {
     handleAddField,
     removeField,
     handleChangeInput,
+    setupFields,
   };
 };

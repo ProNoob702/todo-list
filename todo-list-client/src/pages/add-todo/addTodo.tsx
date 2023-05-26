@@ -1,23 +1,38 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { AppLayout } from "../../layout/Layout";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTasksFields } from "./useTasksFields";
 import { useTodoListMananger } from "../../hooks/todoList.hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Notify } from "../../services/toast.service";
 import { BackBtn } from "../../components/BackBtn";
 
-const AddTodoItem = () => {
+const AddOrEditTodoItem = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [todoListName, setTodolistName] = useState("");
-  const { tasksFields, handleAddField, handleChangeInput, removeField } = useTasksFields();
+  const { tasksFields, handleAddField, handleChangeInput, removeField, setupFields } = useTasksFields();
 
-  const { requestCreateTodoList } = useTodoListMananger();
+  const { requestCreateTodoList, requestUpdateTodoList, getTodoListFromApi } = useTodoListMananger();
+
+  useEffect(() => {
+    (async () => {
+      const todolist = await getTodoListFromApi(id!);
+      setTodolistName(todolist.name);
+      setupFields(todolist);
+    })();
+  }, [id]);
 
   const handleAddTodoList = async () => {
     try {
-      await requestCreateTodoList({ name: todoListName, tasks: tasksFields.map((x) => x.taskName!) });
-      Notify("Todolist ajouter avec succés!", "SUCCESS");
+      if (!id) {
+        await requestCreateTodoList({ name: todoListName, tasks: tasksFields.map((x) => x.taskName!) });
+        Notify("Todolist ajouter avec succés!", "SUCCESS");
+      } else {
+        await requestUpdateTodoList(id!, { name: todoListName, tasks: tasksFields.map((x) => x.taskName!) });
+        Notify("Todolist mis a jour avec succés!", "SUCCESS");
+      }
+
       navigate("/");
     } catch (err: any) {
       Notify(err?.response?.data?.message, "Error");
@@ -29,7 +44,7 @@ const AddTodoItem = () => {
       <div className="w-fit mx-auto">
         <div className="flex my-4">
           <BackBtn />
-          <Typography className="ml-2" variant="h3">
+          <Typography className="ml-4" variant="h3">
             Ajouter un todo liste
           </Typography>
         </div>
@@ -61,4 +76,4 @@ const AddTodoItem = () => {
   );
 };
 
-export default AddTodoItem;
+export default AddOrEditTodoItem;

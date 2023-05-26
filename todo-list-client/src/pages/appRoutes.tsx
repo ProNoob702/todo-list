@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AllTodosList from "./all-todos/allTodosList";
-import AddTodoItem from "./add-todo/addTodo";
+import AddOrEditTodoItem from "./add-todo/addTodo";
 import { useEffect } from "react";
 import { useTodoListMananger } from "../hooks/todoList.hooks";
 
@@ -18,8 +18,8 @@ export const AppRoutes: React.FC<{}> = () => {
       <Routes>
         <Route path="*" element={<Navigate to={"/"} replace />} />
         <Route path="/" element={<AllTodosList />} />
-        <Route path="/add-todo" element={<AddTodoItem />} />
-        <Route path="/add-todo/:id" element={<AddTodoItem />} />
+        <Route path="/add-todo" element={<AddOrEditTodoItem />} />
+        <Route path="/add-todo/:id" element={<AddOrEditTodoItem />} />
       </Routes>
     </BrowserRouter>
   );
