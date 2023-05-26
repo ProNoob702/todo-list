@@ -3,7 +3,7 @@ import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { todoListActions, todoListReducer } from "./slices/todoList.slice";
 
 export const rootReducer = combineReducers({
-  moviesState: todoListReducer,
+  todosState: todoListReducer,
 });
 
 const store = configureStore({

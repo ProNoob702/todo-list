@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { Button, Navbar, Typography } from "@material-tailwind/react";
+import { Badge, Button, Navbar, Typography, useSelect } from "@material-tailwind/react";
+import { IAppState } from "../redux-store/store";
+import { getAllTodoListsCount } from "../redux-store/selectors/todoList.selectors";
+import { useSelector } from "react-redux";
 
 export const NavBar: React.FC<{}> = () => {
   return (
@@ -16,21 +19,29 @@ export const NavBar: React.FC<{}> = () => {
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">
               <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-                <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-                  <a href="#" className="flex items-center">
-                    <Link to="/">Tous les todo</Link>
-                  </a>
-                </Typography>
-                <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-                  <a href="#" className="flex items-center">
-                    <Link to="/add-todo">Nouvelle Todo Liste</Link>
-                  </a>
-                </Typography>
+                <Link to="/add-todo">
+                  <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
+                    Nouvelle Todo Liste
+                  </Typography>
+                </Link>
+                <TodosCount />
               </ul>
             </div>
           </div>
         </div>
       </Navbar>
     </header>
+  );
+};
+
+const TodosCount = () => {
+  const todosCount = useSelector((state: IAppState) => getAllTodoListsCount(state));
+
+  return (
+    <Badge content={todosCount || 0} withBorder>
+      <Button>
+        <Link to="/">Mes todos listes </Link>
+      </Button>
+    </Badge>
   );
 };

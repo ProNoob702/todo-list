@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { CreateOrUpdateTodoListRequest, TodoListItem } from "../models/todoList";
 
-const baseUrl = process.env.BASE_BACKEND_URL;
+const baseUrl = "http://localhost:8080";
 const baseAdminProducts = `${baseUrl}/todolists`;
 
 export const fetchAllTodoLists = (): Promise<AxiosResponse<TodoListItem[]>> => {

@@ -2,6 +2,14 @@ import { createSelector } from "@reduxjs/toolkit";
 import { TodoListItem } from "../../models/todoList";
 import { IAppState } from "../store";
 
+export const getAllTodoLists = (state: IAppState) => {
+  return state.todosState.todolists;
+};
+
+export const getAllTodoListsCount = (state: IAppState) => {
+  return state.todosState.todolists.length;
+};
+
 // export const getMoviesList = (state: IAppState): IMovie[] | null => {
 //   return state.moviesState.moviesList;
 // };
