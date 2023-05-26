@@ -16,6 +16,9 @@ const AddOrEditTodoItem = () => {
   const { requestCreateTodoList, requestUpdateTodoList, getTodoListFromApi } = useTodoListMananger();
 
   useEffect(() => {
+    if (!id) {
+      return;
+    }
     (async () => {
       const todolist = await getTodoListFromApi(id!);
       setTodolistName(todolist.name);
